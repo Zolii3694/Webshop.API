@@ -1,11 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Webshop.API.Models
+namespace Webshop.API.Data_Transfer_Object
 {
-    public class Order
+    public class CreateOrderDto
     {
-        public int Id { get; set; }
-
         [Required]
         [StringLength(100)]
         public string CustomerName { get; set; } = string.Empty;
@@ -16,10 +14,9 @@ namespace Webshop.API.Models
 
         [Required]
         [StringLength(200)]
-        public string Address { get; set; } = string.Empty;
+        public string Address {  get; set; } = string.Empty;
 
-        public DateTime OrderDate { get; set; } = DateTime.Now;
-
-        public List<OrderItem> Items { get; set; } = new();
+        [Required]
+        public List<CreateOrderItemDto> Items { get; set; } = new();
     }
 }
