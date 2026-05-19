@@ -67,7 +67,7 @@ namespace Webshop.API.Controllers
 
                 if (product.Stock < itemDto.Quantity)
                 {
-                    return BadRequest($"Nincs eleg a keszleten: {product.Name}, elerheto: {itemDto.Quantity}");
+                    return BadRequest($"Nincs eleg a keszleten: {product.Name}, elerheto: {itemDto.Stock}");
                 }
 
                 product.Stock -= itemDto.Quantity;
