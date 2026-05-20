@@ -16,8 +16,15 @@ namespace Webshop.API.Controllers
         }
         public IActionResult Index()
         {
-            var cart = GetCart();
-            return View(cart);
+            var cartItems = GetCart();
+
+            var model = new CartViewModel
+            {
+                Items = cartItems,
+                TotalPrice = cartItems.Sum(i => i.SubTotal)
+            };
+
+            return View(model);
         }
         [HttpPost]
         public IActionResult AddToCart(int productId)
@@ -43,6 +50,7 @@ namespace Webshop.API.Controllers
                 {
                     ProductId = product.Id,
                     ProductName = product.Name,
+                    ImageUrl = product.ImageUrl ?? "",
                     Price = product.Price,
                     Quantity = 1
                 });

@@ -176,9 +176,10 @@
                                     @product.Price.ToString("N0") Ft
                                 </p>
 
-                                <button class="btn btn-crystal w-100">
-                                    Kosárba
-                                </button>
+                <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                    <input type="hidden" name="productId" value="@product.Id" />
+                    <button type="submit" class="btn btn-crystal w-100">Kosarba</button>
+                </form>
                             </div>
 
                         </div>

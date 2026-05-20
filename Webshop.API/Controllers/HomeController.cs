@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Webshop.API.Data;
 using Webshop.API.ViewModels;
 
@@ -13,15 +14,32 @@ namespace Webshop.API.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string? search, int? categoryId)
         {
-            var vm = new HomeViewModel
+            var productsQuery = _context.Products.Include(p => p.Category).Where(p => !p.IsDeleted).AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(search))
             {
-                Products = _context.Products.ToList(),
-                Categories = _context.Categories.ToList()
+                productsQuery = productsQuery.Where(p =>
+                    p.Name.Contains(search) || 
+                    (p.Description != null && p.Description.Contains(search)));
+            }
+
+            if(categoryId.HasValue)
+            {
+                productsQuery = productsQuery.Where(p => p.CategoryId == categoryId.Value);
+            }
+
+            var model = new HomeViewModel
+            {
+                Products = await productsQuery.ToListAsync(),
+                Categories = await _context.Categories.ToListAsync()
             };
 
-            return View(vm);
+
+
+            return View(model);
+
         }
     }
 }

@@ -33,6 +33,8 @@ namespace Webshop.API.ViewModels
         [Display(Name = "Fizetési mód")]
         public string PaymentMethod { get; set; } = "";
 
+        public List<CartItemViewModel> Items { get; set; } = new();
+
         public decimal TotalPrice{ get; set; }
 
     }
