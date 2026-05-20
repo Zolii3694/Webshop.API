@@ -1,0 +1,69 @@
+﻿@model List<Webshop.API.ViewModels.AdminProductViewModel>
+
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+            body {
+                background-color: #fdf8ff;
+            }
+
+            h2 {
+                color: #6d4c7d;
+                font-weight: bold;
+            }
+
+            .btn-crystal {
+                background-color: #8e7cc3;
+                color: white;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="container mt-5">
+        <h2>🛠 Admin termékkezelés</h2>
+
+        <a href="/Admin/Create" class="btn btn-crystal mb-4">
+            + Új termék hozzáadása
+        </a>
+
+        <table class="table table-striped bg-white shadow">
+            <thead>
+                <tr>
+                    <th>Név</th>
+                    <th>Ár</th>
+                    <th>Készlet</th>
+                    <th>Műveletek</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var product in Model)
+                {
+                    <tr>
+                        <td>@product.Name</td>
+                        <td>@product.Price.ToString("N0") Ft</td>
+                        <td>@product.Stock</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm">
+                                Szerkesztés
+                            </button>
+
+                            <button class="btn btn-danger btn-sm">
+                                Törlés
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,123 @@
+﻿@model Webshop.API.ViewModels.CartViewModel
+
+@{
+    ViewData["Title"] = "Kosár";
+}
+
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kosár</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+            body {
+                background-color: #fdf8ff;
+            }
+
+            .cart-card {
+                background: white;
+                border-radius: 20px;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+                padding: 20px;
+            }
+
+            .btn-crystal {
+                background-color: #8e7cc3;
+                color: white;
+                border-radius: 12px;
+            }
+
+                .btn-crystal:hover {
+                    background-color: #b4a7d6;
+                    color: white;
+                }
+
+            .product-img {
+                width: 100px;
+                height: 100px;
+                object-fit: cover;
+                border-radius: 15px;
+            }
+
+            h2 {
+                color: #6d4c7d;
+                font-weight: bold;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">🛒 Kosár</h2>
+
+        @if (Model.Items.Any())
+        {
+            <div class="cart-card">
+
+                @foreach (var item in Model.Items)
+                {
+                    <div class="row align-items-center mb-4">
+
+                        <div class="col-md-2">
+                            <img src="@(string.IsNullOrEmpty(item.ImageUrl) ? "/images/placeholder.jpg" : item.ImageUrl)"
+                                 class="product-img">
+                        </div>
+
+                        <div class="col-md-3">
+                            <h5>@item.ProductName</h5>
+                        </div>
+
+                        <div class="col-md-2">
+                            @item.Price.ToString("N0") Ft
+                        </div>
+
+                        <div class="col-md-2">
+                            <input type="number" value="@item.Quantity" class="form-control">
+                        </div>
+
+                        <div class="col-md-2 fw-bold">
+                            @item.SubTotal.ToString("N0") Ft
+                        </div>
+
+                        <div class="col-md-1">
+                            <button class="btn btn-danger">
+                                X
+                            </button>
+                        </div>
+
+                    </div>
+                }
+
+                <hr>
+
+                <div class="text-end">
+                    <h4>Összesen: @Model.TotalPrice.ToString("N0") Ft</h4>
+
+                    <a href="/Checkout" class="btn btn-crystal mt-3">
+                        Tovább a fizetéshez
+                    </a>
+                </div>
+
+            </div>
+        }
+        else
+        {
+            <div class="cart-card text-center">
+                <h4>A kosarad jelenleg üres.</h4>
+
+                <a href="/Home/Index" class="btn btn-crystal mt-3">
+                    Vásárlás folytatása
+                </a>
+            </div>
+        }
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
