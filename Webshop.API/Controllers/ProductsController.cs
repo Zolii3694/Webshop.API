@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Webshop.API.Data;
 using Webshop.API.Models;
@@ -33,7 +34,7 @@ namespace Webshop.API.Controllers
             }
             return product;
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<Product>> CreateProduct(Product product)
         {
@@ -53,10 +54,13 @@ namespace Webshop.API.Controllers
         [HttpGet("search")]
         public async Task<ActionResult<IEnumerable<Product>>> SearchProducts(string term)
         {
-            return await _context.Products.Include(p => p.Category).Where(p => !p.IsDeleted && p.Name.Contains(term) ||
-            (p.Description != null && p.Description.Contains(term))).ToListAsync();
+            return await _context.Products
+                .Include(p => p.Category)
+                .Where(p => !p.IsDeleted &&
+                    (p.Name.Contains(term) ||
+                    (p.Description != null && p.Description.Contains(term)))).ToListAsync();
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {

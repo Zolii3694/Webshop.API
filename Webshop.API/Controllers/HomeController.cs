@@ -9,7 +9,7 @@ namespace Webshop.API.Controllers
         private readonly WebshopDbContext _context;
 
         public HomeController(WebshopDbContext context)
-        {
+    {
             _context = context;
         }
 
