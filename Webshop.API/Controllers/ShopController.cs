@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Webshop.API.Data;
+using Webshop.API.ViewModels;
 
 namespace Webshop.API.Controllers
 {
@@ -17,6 +18,12 @@ namespace Webshop.API.Controllers
         {
             var products = await _context.Products.Include(p => p.Category).Where(p => !p.IsDeleted).ToListAsync();
             return View(products);
+        }
+
+        [HttpGet]
+        public IActionResult Orders()
+        {
+            return View(new List<OrderViewModel>());
         }
     }
 }
