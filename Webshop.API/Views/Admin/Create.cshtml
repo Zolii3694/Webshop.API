@@ -1,0 +1,72 @@
+﻿@model Webshop.API.ViewModels.AdminProductViewModel
+
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Új termék</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+            body {
+                background-color: #fdf8ff;
+            }
+
+            .form-card {
+                background: white;
+                padding: 35px;
+                border-radius: 20px;
+                box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            }
+
+            .btn-crystal {
+                background-color: #8e7cc3;
+                color: white;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="container mt-5">
+        <div class="form-card">
+
+            <h2>💎 Új termék hozzáadása</h2>
+
+            <form asp-action="Create" method="post">
+
+                <div class="mb-3">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Description"></label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Price"></label>
+                    <input asp-for="Price" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ImageUrl"></label>
+                    <input asp-for="ImageUrl" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Stock"></label>
+                    <input asp-for="Stock" class="form-control">
+                </div>
+
+                <button type="submit" class="btn btn-crystal">
+                    Mentés
+                </button>
+
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,126 @@
+﻿@model Webshop.API.ViewModels.CheckoutViewModel
+
+@{
+    ViewData["Title"] = "Pénztár";
+}
+
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pénztár</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+            body {
+                background-color: #fdf8ff;
+            }
+
+            .checkout-card {
+                background: white;
+                border-radius: 25px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                padding: 35px;
+            }
+
+            h2 {
+                color: #6d4c7d;
+                font-weight: bold;
+            }
+
+            .btn-crystal {
+                background-color: #8e7cc3;
+                color: white;
+                border-radius: 12px;
+            }
+
+                .btn-crystal:hover {
+                    background-color: #b4a7d6;
+                    color: white;
+                }
+
+            .form-control,
+            .form-select {
+                border-radius: 12px;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="container mt-5 mb-5">
+        <h2 class="text-center mb-4">💎 Pénztár</h2>
+
+        <div class="checkout-card">
+            <form asp-action="Index" method="post">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="FullName" class="form-label"></label>
+                        <input asp-for="FullName" class="form-control">
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Email" class="form-label"></label>
+                        <input asp-for="Email" class="form-control">
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="PhoneNumber" class="form-label"></label>
+                        <input asp-for="PhoneNumber" class="form-control">
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="ZipCode" class="form-label"></label>
+                        <input asp-for="ZipCode" class="form-control">
+                        <span asp-validation-for="ZipCode" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                        <label asp-for="Address" class="form-label"></label>
+                        <input asp-for="Address" class="form-control">
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                        <label asp-for="City" class="form-label"></label>
+                        <input asp-for="City" class="form-control">
+                        <span asp-validation-for="City" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-12 mb-4">
+                        <label asp-for="PaymentMethod" class="form-label"></label>
+                        <select asp-for="PaymentMethod" class="form-select">
+                            <option value="">Válassz fizetési módot</option>
+                            <option>Bankkártya</option>
+                            <option>Utánvét</option>
+                            <option>PayPal</option>
+                        </select>
+                        <span asp-validation-for="PaymentMethod" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="text-end">
+                    <h4>Végösszeg: @Model.TotalPrice.ToString("N0") Ft</h4>
+
+                    <button type="submit" class="btn btn-crystal mt-3">
+                        Rendelés leadása
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
