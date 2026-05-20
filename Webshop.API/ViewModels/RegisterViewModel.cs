@@ -9,9 +9,8 @@ namespace Webshop.API.ViewModels
         public string FullName { get; set; } = "";
 
         [Required]
-        [EmailAddress]
-        [Display(Name = "Email cím")]
-        public string Email { get; set; } = "";
+        [Display(Name = "Felhasználónév")]
+        public string UserName { get; set; } = "";
 
         [Required]
         [DataType(DataType.Password)]

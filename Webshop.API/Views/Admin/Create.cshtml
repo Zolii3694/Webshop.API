@@ -9,19 +9,24 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-            body {
-                background-color: #fdf8ff;
-            }
+        body {
+            background-color: #fdf8ff;
+        }
 
-            .form-card {
-                background: white;
-                padding: 35px;
-                border-radius: 20px;
-                box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            }
+        .form-card {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
 
-            .btn-crystal {
-                background-color: #8e7cc3;
+        .btn-crystal {
+            background-color: #8e7cc3;
+            color: white;
+        }
+
+            .btn-crystal:hover {
+                background-color: #b4a7d6;
                 color: white;
             }
     </style>
@@ -33,36 +38,55 @@
 
             <h2>💎 Új termék hozzáadása</h2>
 
-            <form asp-action="Create" method="post">
+            <form asp-controller="Admin" asp-action="Create" method="post">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
                 <div class="mb-3">
                     <label asp-for="Name"></label>
-                    <input asp-for="Name" class="form-control">
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
                     <label asp-for="Description"></label>
                     <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
                     <label asp-for="Price"></label>
-                    <input asp-for="Price" class="form-control">
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
                     <label asp-for="ImageUrl"></label>
-                    <input asp-for="ImageUrl" class="form-control">
+                    <input asp-for="ImageUrl" class="form-control" />
+                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
                     <label asp-for="Stock"></label>
-                    <input asp-for="Stock" class="form-control">
+                    <input asp-for="Stock" class="form-control" />
+                    <span asp-validation-for="Stock" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="CategoryId"></label>
+                    <select asp-for="CategoryId" asp-items="Model.Categories" class="form-control">
+                        <option value="">Válassz kategóriát...</option>
+                    </select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
                 </div>
 
                 <button type="submit" class="btn btn-crystal">
                     Mentés
                 </button>
+
+                <a href="/Home/Index" class="btn btn-secondary">
+                    Vissza
+                </a>
 
             </form>
         </div>

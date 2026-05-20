@@ -21,9 +21,31 @@ namespace Webshop.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult Orders()
+        [HttpGet]
+        public async Task<IActionResult> Orders()
         {
-            return View(new List<OrderViewModel>());
+            var orders = await _context.Orders
+                .Include(o => o.Items)
+                .ThenInclude(i => i.Product)
+                .OrderByDescending(o => o.OrderDate)
+                .Select(o => new OrderViewModel
+                {
+                    Id = o.Id,
+                    CustomerName = o.CustomerName,
+                    Email = o.Email,
+                    Address = o.Address,
+                    OrderDate = o.OrderDate,
+                    Items = o.Items.Select(i => new OrderItemViewModel
+                    {
+                        ProductName = i.Product != null ? i.Product.Name : "Ismeretlen termek",
+                        Quantity = i.Quantity,
+                        UnitPrice = i.UnitPrice
+                    }).ToList(),
+                    TotalPrice = o.Items.Sum(i => i.UnitPrice * i.Quantity)
+                })
+                .ToListAsync();
+
+            return View(orders);
         }
     }
 }

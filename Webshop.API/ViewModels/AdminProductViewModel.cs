@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 
 namespace Webshop.API.ViewModels
 {
@@ -24,5 +25,11 @@ namespace Webshop.API.ViewModels
         [Required]
         [Display(Name = "Készlet")]
         public int Stock { get; set; }
+
+        [Required]
+        [Display(Name = "Kategória")]
+        public int CategoryId { get; set; }
+
+        public List<SelectListItem> Categories { get; set; } = new();
     }
 }

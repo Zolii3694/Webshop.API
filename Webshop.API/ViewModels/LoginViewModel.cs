@@ -5,11 +5,12 @@ namespace Webshop.API.ViewModels
     public class LoginViewModel
     {
         [Required]
-        [EmailAddress]
-        public string Email { get; set; } = "";
+        [Display(Name = "Felhasználónév")]
+        public string UserName { get; set; } = "";
 
         [Required]
         [DataType(DataType.Password)]
+        [Display(Name = "Jelszó")]
         public string Password { get; set; } = "";
     }
 }

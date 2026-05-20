@@ -126,7 +126,17 @@
                             Kosár
                         </a>
                     </li>
-                </ul>
+                    @{
+                        var role = Context.Session.GetString("UserRole");
+                    }
+                    @if (Context.Session.GetString("UserName") != null)
+                    {
+                        <a class="nav-link text-white" href="/Account/Logout">Kijelentkezés</a>
+                    }
+                    else
+                    {
+                        <a class="nav-link text-white" href="/Account/Login">Bejelentkezés</a>
+                    }
 
             </div>
         </div>
@@ -178,7 +188,7 @@
                                     @product.Price.ToString("N0") Ft
                                 </p>
 
-                <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                 <form asp-controller="Cart" asp-action="AddToCart" method="post">
                     <input type="hidden" name="productId" value="@product.Id" />
                     <button type="submit" class="btn btn-crystal w-100">Kosarba</button>
                 </form>
@@ -199,7 +209,7 @@
 </div>
 
     <footer>
-        © 2025 CrystalAura — Minden jog fenntartva
+        © 420:D CrystalAura — Minden jog fenntartva
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>

@@ -81,14 +81,14 @@
             <div asp-validation-summary="ModelOnly"></div>
 
             <div class="mb-3">
-                <label asp-for="Email" class="form-label"></label>
-                <input asp-for="Email" class="form-control" placeholder="email@example.com">
-                <span asp-validation-for="Email" class="text-danger"></span>
+                <label asp-for="UserName"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
-                <label asp-for="Password" class="form-label"></label>
-                <input asp-for="Password" class="form-control" placeholder="Jelszó">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" class="form-control" type="password" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
 
