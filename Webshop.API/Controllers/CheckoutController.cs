@@ -1,12 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
+using Webshop.API.Data;
+using Webshop.API.Models;
 using Webshop.API.ViewModels;
 
 namespace Webshop.API.Controllers
 {
     public class CheckoutController : Controller
     {
+
+        private readonly WebshopDbContext _context;
         private const string CartSessionKey = "Cart";
+
+        public CheckoutController(WebshopDbContext context)
+        {
+            _context = context;
+        }
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -22,7 +32,7 @@ namespace Webshop.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(CheckoutViewModel model)
+        public async Task<IActionResult> Index(CheckoutViewModel model)
         {
             var cartItems = GetCart();
 
@@ -31,6 +41,50 @@ namespace Webshop.API.Controllers
 
             if (!ModelState.IsValid)
                 return View(model);
+
+            if (!cartItems.Any())
+            {
+                ModelState.AddModelError("", "A kosar ures.");
+                return View(model);
+            }
+
+            var order = new Order
+            {
+                CustomerName = model.FullName,
+                Email = model.Email,
+                Address = $"{model.ZipCode} {model.City}, {model.Address}"
+            };
+
+            foreach (var item in cartItems)
+            {
+                var product = await _context.Products.FindAsync(item.ProductId);
+
+                if(product == null || product.IsDeleted)
+                {
+                    ModelState.AddModelError("", $"A termek nem talalhato: {item.ProductName}");
+                    return View(model);
+                }
+
+                if(product.Stock < item.Quantity)
+                {
+                    ModelState.AddModelError("", $"Nincs eleg a keszleten: {product.Name}");
+                    return View(model);
+                }
+            
+                product.Stock -= item.Quantity;
+
+                order.Items.Add(new OrderItem
+                {
+                    ProductId = product.Id,
+                    Quantity = item.Quantity,
+                    UnitPrice = product.Price,
+                });
+            }
+
+            _context.Orders.Add(order);
+            await _context.SaveChangesAsync();
+
+            HttpContext.Session.Remove(CartSessionKey);
 
             return RedirectToAction("Success");
         }
