@@ -10,7 +10,10 @@
                 <p>Keszlet: @product.Stock db</p>
                 <p>Kategoria: @product.Category?.Name</p>
 
-                <button class="btn btn-success">Kosarba</button>
+                <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                    <input type="hidden" name="productId" value="@product.Id" />
+                    <button type="submit" class="btn btn-success w-100">Kosarba</button>
+                </form>
             </div>
         </div>
     }
