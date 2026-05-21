@@ -1,4 +1,4 @@
-# CrystalAura Webshop
+**# CrystalAura Webshop
 
 A projekt egy ASP.NET Core alapú webshop alkalmazás, amely MVC / cshtml nézeteket, Web API végpontokat és Entity Framework Core alapú adatbázis-kezelést használ.
 
@@ -71,3 +71,4 @@ Az MVC felület böngészőből érhető el, például:
 - /Account/Login
 - /Account/Register
 - /Admin/Create
+**
